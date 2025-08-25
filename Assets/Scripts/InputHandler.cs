@@ -4,6 +4,7 @@ using UnityEngine;
 public class InputHandler : MonoBehaviour
 {
     public event Action<Vector2> MovementKeyPressed;
+    public event Action JumpKeyPressed;
 
     private void Update()
     {
@@ -11,5 +12,8 @@ public class InputHandler : MonoBehaviour
 
         if (position != Vector2.zero)
             MovementKeyPressed?.Invoke(position);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            JumpKeyPressed?.Invoke();
     }
 }
