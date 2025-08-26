@@ -336,7 +336,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2307765239a260f4e9423a8e7fd07f0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 2
+  _moveSpeed: 3
 --- !u!95 &1618253198
 Animator:
   serializedVersion: 5
@@ -358,7 +358,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1618253199
+--- !u!114 &1618253204
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -370,10 +370,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acc054b13b5e0f84f994096f5fdbf8e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpForce: 2
+  _jumpForce: 5
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4
 --- !u!1 &1681114135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,10 +1733,10 @@ PrefabInstance:
       addedObject: {fileID: 1618253197}
     - targetCorrespondingSourceObject: {fileID: 6893726908069089350, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1618253199}
+      addedObject: {fileID: 1618253196}
     - targetCorrespondingSourceObject: {fileID: 6893726908069089350, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1618253196}
+      addedObject: {fileID: 1618253204}
   m_SourcePrefab: {fileID: 100100000, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

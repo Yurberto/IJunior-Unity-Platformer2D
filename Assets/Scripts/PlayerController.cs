@@ -1,28 +1,48 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D), typeof(Rigidbody2D), typeof(Mover))]
+[RequireComponent(typeof(Animator), typeof(Jumper), typeof(Mover))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] InputHandler _inputHandler;
 
     private Mover _mover;
     private Jumper _jumper;
+    private Animator _animator;
 
     private void Awake()
     {
         _mover = GetComponent<Mover>();
         _jumper = GetComponent<Jumper>();
+        _animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
     {
-        _inputHandler.MovementKeyPressed += _mover.Move;
-        _inputHandler.JumpKeyPressed += _jumper.Jump;
+        _inputHandler.MovementKeyPressed += Run;
+        _inputHandler.MovementKeyUpped += StopRunning;
+        _inputHandler.JumpKeyPressed += Jump;
     }
 
     private void OnDisable()
     {
-        _inputHandler.MovementKeyPressed -= _mover.Move;
-        _inputHandler.JumpKeyPressed += _jumper.Jump;
+        _inputHandler.MovementKeyPressed -= Run;
+        _inputHandler.MovementKeyUpped -= StopRunning;
+        _inputHandler.JumpKeyPressed -= Jump;
+    }
+
+    private void Jump()
+    {
+        _jumper.Jump();
+    }
+
+    private void Run(Vector2 offset)
+    {
+        _mover.Move(offset);
+        _animator.SetBool(PlayerAnimatorData.Params.IsRunning, true);
+    }
+
+    private void StopRunning()
+    {
+        _animator.SetBool(PlayerAnimatorData.Params.IsRunning, false);
     }
 }

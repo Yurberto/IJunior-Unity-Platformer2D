@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -17,14 +18,39 @@ public class Jumper : MonoBehaviour
     public void Jump()
     {
         if (IsGrounded())
+        {
             GetComponent<Rigidbody2D>().AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
+        }
     }
 
     private bool IsGrounded()
     {
         float acceptableDistance = 0.1f;
-        RaycastHit2D hitted = Physics2D.Raycast(_collider.bounds.min, Vector2.down, acceptableDistance);
+        
+        Vector2 minLeftPoint = new Vector2(_collider.bounds.min.x, _collider.bounds.min.y);
+        Vector2 minRightPoint = new Vector2(_collider.bounds.max.x, _collider.bounds.min.y);
+        Vector2 minCenterPoint = _collider.bounds.min;
 
-        return hitted.collider != null;
+        Vector2[] minColliderPoints = new Vector2[] 
+        {
+            minLeftPoint, 
+            minRightPoint,
+            minCenterPoint
+        };
+
+        bool isGrounded = false;
+
+        foreach (Vector2 point in minColliderPoints)
+        {
+            var hitted = Physics2D.Raycast(point, Vector2.down, acceptableDistance);
+
+            if (hitted.collider != null)
+            {
+                isGrounded = true;
+                break;
+            }
+        }
+
+        return isGrounded;
     }
 }

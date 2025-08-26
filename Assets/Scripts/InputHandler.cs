@@ -5,12 +5,15 @@ public class InputHandler : MonoBehaviour
 {
     public event Action<Vector2> MovementKeyPressed;
     public event Action JumpKeyPressed;
+    public event Action MovementKeyUpped;
 
     private void Update()
     {
         Vector2 position = new Vector2(Input.GetAxisRaw(AxisConstants.Horizontal.ToString()), 0);
 
-        if (position != Vector2.zero)
+        if (position == Vector2.zero)
+            MovementKeyUpped?.Invoke();
+        else
             MovementKeyPressed?.Invoke(position);
 
         if (Input.GetKeyDown(KeyCode.Space))
