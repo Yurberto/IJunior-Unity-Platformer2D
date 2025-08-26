@@ -19,14 +19,14 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _inputHandler.MovementKeyPressed += Run;
-        _inputHandler.MovementKeyUpped += StopRunning;
+        _inputHandler.MovementStopped += StopRunning;
         _inputHandler.JumpKeyPressed += Jump;
     }
 
     private void OnDisable()
     {
         _inputHandler.MovementKeyPressed -= Run;
-        _inputHandler.MovementKeyUpped -= StopRunning;
+        _inputHandler.MovementStopped -= StopRunning;
         _inputHandler.JumpKeyPressed -= Jump;
     }
 
