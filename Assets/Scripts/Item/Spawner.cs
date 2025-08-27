@@ -30,7 +30,8 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
-        _pool.Get();
+        if (_availableSpawnpoints.Count > 0)
+            _pool.Get();
     }
 
     private void Release(Gem gem)
