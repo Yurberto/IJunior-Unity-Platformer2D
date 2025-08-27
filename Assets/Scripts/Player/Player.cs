@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(Jumper), typeof(Mover))]
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     [SerializeField] InputHandler _inputHandler;
 
