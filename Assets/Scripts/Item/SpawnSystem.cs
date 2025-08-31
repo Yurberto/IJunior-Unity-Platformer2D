@@ -6,11 +6,11 @@ public class SpawnSystem : MonoBehaviour
     [SerializeField] private Spawner _spawner;
     [SerializeField, Range(1, 100)] private float _spawnDelay = 1.0f;
 
-    private Coroutine _coroutine;
+    private Coroutine _spawnCoroutine;
 
-    private void Awake()
+    private void Start()
     {
-        _coroutine = StartCoroutine(SpawnCoroutine());
+        _spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }
 
     private IEnumerator SpawnCoroutine()

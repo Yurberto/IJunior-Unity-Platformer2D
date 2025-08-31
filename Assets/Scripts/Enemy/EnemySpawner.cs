@@ -2,24 +2,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Spawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Gem _prefab;
+    [SerializeField] private Enemy _prefab;
     [SerializeField] private Transform _spawnpointsParent;
 
     private Transform[] _spawnpoints;
     private List<Vector2> _availableSpawnpoints;
-    private ObjectPool<Gem> _pool;
+    private ObjectPool<Enemy> _pool;
 
     private void Awake()
     {
         _spawnpoints = new Transform[_spawnpointsParent.childCount];
         _availableSpawnpoints = new List<Vector2>();
-        _pool = new ObjectPool<Gem>
+        _pool = new ObjectPool<Enemy>
             (
             createFunc: () => Instantiate(_prefab),
-            actionOnGet: (gem) => GetAction(gem),
-            actionOnRelease: (gem) => ReleaseAction(gem),
+            actionOnGet: (enemy) => GetAction(enemy),
+            actionOnRelease: (enemy) => ReleaseAction(enemy),
+            actionOnDestroy: (enemy) => Destroy(enemy.gameObject),
             collectionCheck: true
             );
     }
@@ -29,35 +30,30 @@ public class Spawner : MonoBehaviour
         for (int i = 0; i < _spawnpointsParent.childCount; i++)
             _spawnpoints[i] = _spawnpointsParent.GetChild(i);
 
-        foreach (Transform point in _spawnpoints)
-            _availableSpawnpoints.Add(point.position);
+        foreach (Transform spawnpoint in _spawnpoints)
+            _availableSpawnpoints.Add(spawnpoint.position);
     }
 
-    public void Spawn()
+    public void Spawn(Enemy enemy)
     {
-        if (_availableSpawnpoints.Count <= 0)
-            return;
-        
         _pool.Get();
     }
 
-    private void Release(Gem gem)
+    public void Release(Enemy enemy)
     {
-        _pool.Release(gem);
+        _pool.Release(enemy);
     }
 
-    private void GetAction(Gem gem)
+    private void GetAction(Enemy enemy)
     {
-        gem.gameObject.SetActive(true);
-        gem.transform.position = GetAvailablePosition();
-        gem.PickedUp += Release;
+        enemy.gameObject.SetActive(true);
+        enemy.transform.position = GetAvailablePosition();
     }
 
-    private void ReleaseAction(Gem gem)
+    private void ReleaseAction(Enemy enemy)
     {
-        gem.gameObject.SetActive(false);
-        _availableSpawnpoints.Add(gem.transform.position);
-        gem.PickedUp -= Release;
+        enemy.gameObject.SetActive(false);
+        _availableSpawnpoints.Add(enemy.transform.position);
     }
 
     private Vector2 GetAvailablePosition()
