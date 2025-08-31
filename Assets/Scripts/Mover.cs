@@ -6,6 +6,6 @@ public class Mover : MonoBehaviour
 
     public void Move(Vector2 offset)
     {
-        transform.Translate(offset * (_moveSpeed * Time.deltaTime));
+        transform.Translate(offset * _moveSpeed * Time.deltaTime);
     }
 }

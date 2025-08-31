@@ -1,28 +1,25 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Mover))]
 public class Enemy : MonoBehaviour
 {
-    private Transform[] _waypoints;
-    private Mover _mover;
+    [SerializeField] private Transform[] _waypoints;
+    [SerializeField, Range(0, 5)] private float _moveSpeed;
 
-    private int _currentWaypoint;
-
-    public void Initialize(Transform[] waypoints)
-    {
-        _waypoints = waypoints;
-    }
-
-    private void Awake()
-    {
-        _mover = GetComponent<Mover>();
-    }
+    private int _currentWaypoint = 0;
 
     private void Update()
     {
-        if (transform.position == _waypoints[_currentWaypoint].position)
+        if (_waypoints == null || _waypoints.Length <= 0)
+            return;
+        
+        Move();
+    }
+
+    private void Move()
+    {
+        if (transform.position.x == _waypoints[_currentWaypoint].position.x)
             _currentWaypoint = (_currentWaypoint + 1) % _waypoints.Length;
 
-        _mover.Move(_waypoints[_currentWaypoint].position);
+        transform.position = Vector2.MoveTowards(transform.position, _waypoints[_currentWaypoint].position, _moveSpeed * Time.deltaTime);
     }
 }
