@@ -13,8 +13,6 @@ GameObject:
   - component: {fileID: 7439179026537059561}
   - component: {fileID: 6151717778235009572}
   - component: {fileID: 8050229982286420166}
-  - component: {fileID: 8774166772357626151}
-  - component: {fileID: 879188085497044495}
   m_Layer: 0
   m_Name: Bear
   m_TagString: Untagged
@@ -172,28 +170,3 @@ CapsuleCollider2D:
   m_Offset: {x: 0.0054718256, y: 0}
   m_Size: {x: 0.4196174, y: 0.63}
   m_Direction: 0
---- !u!114 &8774166772357626151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6472600503796446756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2307765239a260f4e9423a8e7fd07f0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveSpeed: 1.7
---- !u!114 &879188085497044495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6472600503796446756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee21a65293b6004b9f42a6f97b1347b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
