@@ -5,9 +5,8 @@ public class Gem : MonoBehaviour
 {
     public event Action<Gem> PickedUp;
 
-    private void OnTriggerEnter2D(Collider2D collider)
+    public void PikeUp()
     {
-        if (collider.TryGetComponent(out ItemCollector _))
-            PickedUp?.Invoke(this);
+        PickedUp?.Invoke(this);
     }
 }

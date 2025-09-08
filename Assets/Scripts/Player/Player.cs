@@ -1,16 +1,18 @@
 using UnityEngine;
 
-[RequireComponent (typeof(Mover), typeof(GroundDetector))]
+[RequireComponent (typeof(Mover), typeof(Jumper), typeof(GroundDetector))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
 
     private Mover _mover;
+    private Jumper _jumper;
     private GroundDetector _groundDetector;
 
     private void Awake()
     {
         _mover = GetComponent<Mover>();
+        _jumper = GetComponent<Jumper>();
         _groundDetector = GetComponent<GroundDetector>();
     }
 
@@ -31,6 +33,6 @@ public class Player : MonoBehaviour
     private void HandleJump()
     {
         if (_groundDetector.IsGround)
-            _mover.Jump();
+            _jumper.Jump();
     }
 }
