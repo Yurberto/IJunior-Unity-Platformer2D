@@ -1,20 +1,21 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] protected Transform _spawnpointsParent;
-    [SerializeField] protected Gem _prefab;
+    [SerializeField] private Transform _spawnpointsParent;
+    [SerializeField] private Gem _prefab;
+    [SerializeField, Range(0, 10)] private float _spawnDelay = 6.0f;
 
-    protected SpawnProvider _spawnProvider;
-    protected Vector2[] _spawnpoints;
-    protected List<Vector2> _availableSpawnoints;
-    protected int _currentSpawnpoint = 0;
+    private SpawnProvider _spawnProvider;
+    private Vector2[] _spawnpoints;
+    private List<Vector2> _availableSpawnoints;
 
-    protected ObjectPool<Gem> _pool;
+    private ObjectPool<Gem> _pool;
 
-    protected void Awake()
+    private void Awake()
     {
         _spawnpoints = new Vector2[_spawnpointsParent.childCount];
         _availableSpawnoints = new List<Vector2>(_spawnpointsParent.childCount);
@@ -37,9 +38,12 @@ public class Spawner : MonoBehaviour
 
         foreach (Vector2 spawnpoint in _spawnpoints)
             _availableSpawnoints.Add(spawnpoint);
+
+        while (_availableSpawnoints.Count > 0)
+            _pool.Get();
     }
 
-    protected void GetAction(Gem gem)
+    private void GetAction(Gem gem)
     {
         Vector2 spawnpoint = _spawnProvider.GetSpawnPosition();
 
@@ -47,11 +51,25 @@ public class Spawner : MonoBehaviour
         gem.transform.position = spawnpoint;
 
         _availableSpawnoints.Remove(spawnpoint);
+
+        gem.PickedUp += _pool.Release;
     }
 
-    protected void ReleaseAction(Gem gem)
+    private void ReleaseAction(Gem gem)
     {
         gem.gameObject.SetActive(false);
         _availableSpawnoints.Add(gem.transform.position);
+
+        gem.PickedUp -= _pool.Release;
+
+        StartCoroutine(SpawnWithDelay());
+    }
+
+    private IEnumerator SpawnWithDelay()
+    {
+        var wait = new WaitForSeconds(_spawnDelay);
+        yield return wait;
+
+        _pool.Get();
     }
 }

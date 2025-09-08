@@ -31,11 +31,6 @@ public class Player : MonoBehaviour
     private void HandleJump()
     {
         if (_groundDetector.IsGround)
-        {
             _mover.Jump();
-            Debug.Log("прыгнуло");
-        }
-        else
-            Debug.Log("не пригнуло\t" + _groundDetector.IsGround.ToString());
     }
 }
