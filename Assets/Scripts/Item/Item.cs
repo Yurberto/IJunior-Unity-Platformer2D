@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-public class Gem : MonoBehaviour 
+public class Item : MonoBehaviour 
 {
-    public event Action<Gem> PickedUp;
+    public event Action<Item> PickedUp;
 
     public void PikeUp()
     {

@@ -6,14 +6,14 @@ using UnityEngine.Pool;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Transform _spawnpointsParent;
-    [SerializeField] private Gem _prefab;
+    [SerializeField] private Item _prefab;
     [SerializeField, Range(0, 10)] private float _spawnDelay = 6.0f;
 
     private SpawnProvider _spawnProvider;
     private Vector2[] _spawnpoints;
     private List<Vector2> _availableSpawnoints;
 
-    private ObjectPool<Gem> _pool;
+    private ObjectPool<Item> _pool;
 
     private void Awake()
     {
@@ -21,12 +21,12 @@ public class Spawner : MonoBehaviour
         _availableSpawnoints = new List<Vector2>(_spawnpointsParent.childCount);
         _spawnProvider = new SpawnProvider(_availableSpawnoints);
 
-        _pool = new ObjectPool<Gem>
+        _pool = new ObjectPool<Item>
             (
             createFunc: () => Instantiate(_prefab),
-            actionOnGet: (gem) => GetAction(gem),
-            actionOnRelease: (gem) => ReleaseAction(gem),
-            actionOnDestroy: (gem) => Destroy(gem.gameObject),
+            actionOnGet: (item) => GetAction(item),
+            actionOnRelease: (item) => ReleaseAction(item),
+            actionOnDestroy: (item) => Destroy(item.gameObject),
             collectionCheck: true
             );
     }
@@ -43,24 +43,24 @@ public class Spawner : MonoBehaviour
             _pool.Get();
     }
 
-    private void GetAction(Gem gem)
+    private void GetAction(Item item)
     {
         Vector2 spawnpoint = _spawnProvider.GetSpawnPosition();
 
-        gem.gameObject.SetActive(true);
-        gem.transform.position = spawnpoint;
+        item.gameObject.SetActive(true);
+        item.transform.position = spawnpoint;
 
         _availableSpawnoints.Remove(spawnpoint);
 
-        gem.PickedUp += _pool.Release;
+        item.PickedUp += _pool.Release;
     }
 
-    private void ReleaseAction(Gem gem)
+    private void ReleaseAction(Item item)
     {
-        gem.gameObject.SetActive(false);
-        _availableSpawnoints.Add(gem.transform.position);
+        item.gameObject.SetActive(false);
+        _availableSpawnoints.Add(item.transform.position);
 
-        gem.PickedUp -= _pool.Release;
+        item.PickedUp -= _pool.Release;
 
         StartCoroutine(SpawnWithDelay());
     }
