@@ -21,5 +21,6 @@ public class Health : MonoBehaviour, IDamageable
     public void TakeDamage(float damage)
     {
         _health -= Mathf.Clamp(damage, 0, _health);
+        Debug.Log("HP медведя: " +  _health.ToString());
     }
 }

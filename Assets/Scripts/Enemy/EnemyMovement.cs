@@ -1,7 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Patrol), typeof(Follower), typeof(Mover))]
-[RequireComponent(typeof(Rotator))]
+[RequireComponent(typeof(Mover), typeof(Rotator))]
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private TargetDetector _targetDetector;
@@ -36,7 +35,10 @@ public class EnemyMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 direction = _isFollow ? _follower.GetDirection() : _patrol.GetDirection();
+        if (_follower == null && _patrol == null)
+            return;
+
+        Vector2 direction = ((_isFollow || _patrol == null) && _follower != null) ? _follower.GetDirection() : _patrol.GetDirection();
 
         _mover.Move(direction.x);
         _rotator.LookAt(direction.x);
@@ -44,6 +46,9 @@ public class EnemyMovement : MonoBehaviour
 
     private void StartFollow(Player player)
     {
+        if (_follower == null)
+            return;
+
         _isFollow = true;
         _follower.SetTarget(player.transform);
     }
