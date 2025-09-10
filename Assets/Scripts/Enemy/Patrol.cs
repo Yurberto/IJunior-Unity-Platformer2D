@@ -9,7 +9,7 @@ public class Patrol : MonoBehaviour
 
     public Vector2 GetDirection()
     {
-        if (Vector2.Distance(transform.position, _patrolPoints[_currentPoint].position) < _checkpointRadius)
+        if (transform.position.IsEnoughClose(_patrolPoints[_currentPoint].position, _checkpointRadius))
             _currentPoint = (_currentPoint + 1) % _patrolPoints.Length;
 
         return _patrolPoints[_currentPoint].position - transform.position;

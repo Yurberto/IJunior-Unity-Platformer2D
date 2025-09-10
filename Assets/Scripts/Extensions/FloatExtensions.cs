@@ -1,4 +1,4 @@
-public static class Extensions
+public static class FloatExtensions
 {
     public static int Normilize(this float value)
     {

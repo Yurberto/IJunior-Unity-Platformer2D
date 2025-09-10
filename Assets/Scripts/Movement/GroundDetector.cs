@@ -15,7 +15,7 @@ public class GroundDetector : MonoBehaviour
         _collider = GetComponent<Collider2D>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _isGround = ApplyIsGrounded();
     }

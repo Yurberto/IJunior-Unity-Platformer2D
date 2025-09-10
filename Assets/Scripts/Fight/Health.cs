@@ -2,12 +2,12 @@ using UnityEngine;
 
 public class Health : MonoBehaviour, IDamageable
 {
-    [SerializeField, Range(50, 100)] private float _maxHealth = 100;
-    [SerializeField, Range(0, 100)] private float _health = 100;
+    [SerializeField, Range(50, 100)] private float _maxHitPoints = 100;
+    [SerializeField, Range(0, 100)] private float _hitPoints = 100;
 
     private void OnValidate()
     {
-        _health = Mathf.Clamp(_health, 0, _maxHealth);
+        _hitPoints = Mathf.Clamp(_hitPoints, 0, _maxHitPoints);
     }
 
     public void Heel(float heelAmount)
@@ -15,11 +15,11 @@ public class Health : MonoBehaviour, IDamageable
         if (heelAmount < 0)
             return;
 
-        _health = Mathf.Min(_health + heelAmount, _maxHealth);
+        _hitPoints = Mathf.Min(_hitPoints + heelAmount, _maxHitPoints);
     }
 
     public void TakeDamage(float damage)
     {
-        _health -= Mathf.Clamp(damage, 0, _health);
+        _hitPoints -= Mathf.Clamp(damage, 0, _hitPoints);
     }
 }

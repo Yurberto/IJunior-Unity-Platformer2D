@@ -16,15 +16,15 @@ public class InputReader : MonoBehaviour
         {
             MovementKeyPressed?.Invoke(direction);
         }
-        else if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        else if (Input.GetKeyUp(InputData.MoveLeft) || Input.GetKeyUp(InputData.MoveRight))
         {
             MovementKeyReleased?.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(InputData.Jump) || Input.GetKeyDown(InputData.AlternativeJump))
             JumpKeyPressed?.Invoke();
 
-        if (Input.GetKeyUp(KeyCode.Mouse0) || Input.GetKeyUp(KeyCode.Q))
+        if (Input.GetKeyDown(InputData.Attack) || Input.GetKeyDown(InputData.AlternativeAttack))
             AttackKeyPressed?.Invoke();
     }
 
