@@ -35,13 +35,9 @@ public class Player : MonoBehaviour
     {
         if (_attacker == null || _attacker.IsAttack || _damageableDetector == null) 
             return;
-        Debug.Log("Draw " + _attacker.IsAttack.ToString());
 
         if (_damageableDetector.TryDetect(out IDamageable detected, _attacker.AttackRange))
-        {
-            Debug.Log("Detected");
             _attacker.Attack(detected);
-        }
     }
 
     private void UseKit(Kit kit)

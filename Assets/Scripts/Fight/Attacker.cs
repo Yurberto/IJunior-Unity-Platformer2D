@@ -9,20 +9,21 @@ public class Attacker : MonoBehaviour
 
     private bool _isAttack = false;
 
+    public float AttackDelay => 1 / _attackSpeed;
     public float AttackRange => _attackRange;
     public bool IsAttack => _isAttack;
 
     public void Attack(IDamageable damageable)
     {
         damageable.TakeDamage(_damage);
-        Debug.Log("Attacked");
+
         StartCoroutine(DelayCoroutine());
     }
 
     private IEnumerator DelayCoroutine()
     {
         _isAttack = true;
-        yield return new WaitForSeconds(1 / _attackSpeed);
+        yield return new WaitForSeconds(AttackDelay);
         _isAttack = false;
     }
 }

@@ -22,11 +22,10 @@ public class DamageableDetector : MonoBehaviour
         Vector2 boxSize = new Vector2(detectRange, _characterCollider.bounds.max.y - _characterCollider.bounds.min.y);
 
         Collider2D[] hitted = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f);
-        Utils.DrawBox(boxCenter, boxSize);
 
         foreach (Collider2D hit in hitted)
         {
-            if (hit != _characterCollider && hit.TryGetComponent(out Health health))
+            if (hit != _characterCollider && hit.TryGetComponent(out IDamageable health))
             {
                 detected = health;
                 return true;
