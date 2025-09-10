@@ -1,5 +1,4 @@
 using UnityEngine;
-using Color = UnityEngine.Color;
 
 [RequireComponent(typeof(Collider2D))]
 public class DamageableDetector : MonoBehaviour
