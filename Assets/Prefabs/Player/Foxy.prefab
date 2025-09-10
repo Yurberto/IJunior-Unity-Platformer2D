@@ -219,7 +219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 10
-  _attackRange: 3
+  _attackRange: 0.5
+  _attackSpeed: 3
 --- !u!114 &7236770404675034155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9b304bd611369847ba31152a126b164, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _offset: 0.05
 --- !u!114 &-4581172833296199046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -271,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2708748d00b045b44b31f06ee7f17238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 1
+  _moveSpeed: 0.6
 --- !u!114 &734463495266501359
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class TargetDetector : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out Player player))
+        if (collider.TryGetComponent(out Player _))
             PlayerLost?.Invoke();
     }
 }
