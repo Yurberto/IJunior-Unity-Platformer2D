@@ -16,7 +16,10 @@ public class Attacker : MonoBehaviour
     public void Attack(IDamageable damageable)
     {
         damageable.TakeDamage(_damage);
+    }
 
+    public void StartDelayCoroutine()
+    {
         StartCoroutine(DelayCoroutine());
     }
 

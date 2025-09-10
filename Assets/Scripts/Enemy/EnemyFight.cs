@@ -54,7 +54,10 @@ public class EnemyFight : MonoBehaviour
             yield return wait;
 
             if (_damageableDetector.TryDetect(out IDamageable detected, _attacker.AttackRange))
+            {
                 _attacker.Attack(detected);
+                _attacker.StartDelayCoroutine();
+            }
         }
     }
 }

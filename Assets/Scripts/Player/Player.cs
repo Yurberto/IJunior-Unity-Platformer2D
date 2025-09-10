@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(ItemCollector))]
@@ -10,6 +11,8 @@ public class Player : MonoBehaviour
     private Health _health;
     private Attacker _attacker;
     private DamageableDetector _damageableDetector;
+
+    public event Action Attacked;
 
     private void Awake()
     {
@@ -38,6 +41,10 @@ public class Player : MonoBehaviour
 
         if (_damageableDetector.TryDetect(out IDamageable detected, _attacker.AttackRange))
             _attacker.Attack(detected);
+
+        _attacker.StartDelayCoroutine();
+
+        Attacked?.Invoke();
     }
 
     private void UseKit(Kit kit)
