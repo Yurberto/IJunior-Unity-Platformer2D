@@ -15,10 +15,9 @@ GameObject:
   - component: {fileID: 558156275159947808}
   - component: {fileID: -3364790213580790318}
   - component: {fileID: 5870298076989184565}
+  - component: {fileID: -8861907615977991398}
   - component: {fileID: 628215833138891305}
   - component: {fileID: 7236770404675034155}
-  - component: {fileID: -4581172833296199046}
-  - component: {fileID: 3463873197132605638}
   - component: {fileID: -8953403747534635758}
   - component: {fileID: 734463495266501359}
   - component: {fileID: 3943296677049719695}
@@ -206,6 +205,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputReader: {fileID: 0}
+--- !u!114 &-8861907615977991398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6893726908069089350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58804ea5c7701fe4cbf967e36b1f9929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
+  _health: 100
 --- !u!114 &628215833138891305
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,33 +247,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _offset: 0.05
---- !u!114 &-4581172833296199046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893726908069089350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7d6ee29a25f86c42ac0509ed8eae748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
-  _health: 100
---- !u!114 &3463873197132605638
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6893726908069089350}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bd9328620cde2c4fb7bb61b11d7d4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputReader: {fileID: 0}
 --- !u!114 &-8953403747534635758
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,14 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Mover), typeof(Rotator))]
-public class EnemyMovement : MonoBehaviour
+public class EnemyMover : MonoBehaviour
 {
-    [SerializeField] private TargetDetector _targetDetector;
-
     private Mover _mover;
     private Rotator _rotator;
 
-    private Patrol _patrol;
+    private Patroler _patrol;
     private Follower _follower;
 
     private bool _isFollow = false;
@@ -17,23 +15,11 @@ public class EnemyMovement : MonoBehaviour
     {
         _mover = GetComponent<Mover>();
         _rotator = GetComponent<Rotator>();
-        _patrol = GetComponent<Patrol>();
+        _patrol = GetComponent<Patroler>();
         _follower = GetComponent<Follower>();
     }
 
-    private void OnEnable()
-    {
-        _targetDetector.PlayerDetected += StartFollow;
-        _targetDetector.PlayerLost += () => _isFollow = false;
-    }
-
-    private void OnDisable()
-    {
-        _targetDetector.PlayerDetected -= StartFollow;
-        _targetDetector.PlayerLost -= () => _isFollow = false;
-    }
-
-    private void FixedUpdate()
+    public void Move()
     {
         if (_follower == null && _patrol == null)
             return;
@@ -44,7 +30,7 @@ public class EnemyMovement : MonoBehaviour
         _rotator.LookAt(direction.x);
     }
 
-    private void StartFollow(Player player)
+    public void StartFollow(Player player)
     {
         if (_follower == null)
             return;
@@ -52,4 +38,6 @@ public class EnemyMovement : MonoBehaviour
         _isFollow = true;
         _follower.SetTarget(player.transform);
     }
+
+    public void StopFollow() => _isFollow = false;
 }

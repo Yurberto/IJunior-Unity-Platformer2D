@@ -1,11 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(Attacker))]
-public class EnemyFight : MonoBehaviour
+[RequireComponent(typeof(Attacker), typeof(DamageableDetector))]
+public class EnemyFighter : MonoBehaviour
 {
-    [SerializeField] private TargetDetector _targetDetector;
-
     private DamageableDetector _damageableDetector;
     private Attacker _attacker;
 
@@ -17,30 +15,12 @@ public class EnemyFight : MonoBehaviour
         _damageableDetector = GetComponent<DamageableDetector>();
     }
 
-    private void OnEnable()
-    {
-        if (_targetDetector == null)
-            return;
-
-        _targetDetector.DamageableDetected += StartAttack;
-        _targetDetector.DamageableLost += StopAttack;
-    }
-
-    private void OnDisable()
-    {
-        if (_targetDetector == null)
-            return;
-
-        _targetDetector.DamageableDetected -= StartAttack;
-        _targetDetector.DamageableLost -= StopAttack;
-    }
-
-    private void StartAttack()
+    public void StartAttack()
     {
         _attackCoroutine = StartCoroutine(AttackCoroutine());
     }
 
-    private void StopAttack()
+    public void StopAttack()
     {
         StopCoroutine(_attackCoroutine);
     }

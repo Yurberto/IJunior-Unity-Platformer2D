@@ -8,8 +8,12 @@ public class Player : MonoBehaviour
 
     private ItemCollector _collector;
 
-    private Health _health;
+    private Mover _mover;
+    private Jumper _jumper;
+
+    private Vitality _vitality;
     private Attacker _attacker;
+
     private DamageableDetector _damageableDetector;
 
     public event Action Attacked;
@@ -17,19 +21,30 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         _collector = GetComponent<ItemCollector>();
-        _health = GetComponent<Health>();
+
+        _mover = GetComponent<Mover>();
+        _jumper = GetComponent<Jumper>();
+
+        _vitality = GetComponent<Vitality>();
         _attacker = GetComponent<Attacker>();
+
         _damageableDetector = GetComponent<DamageableDetector>();
     }
 
     private void OnEnable()
     {
+        _inputReader.MovementKeyPressed += _mover.Move;
+        _inputReader.MovementKeyReleased += _mover.StopMove;
+        _inputReader.JumpKeyPressed += _jumper.Jump;
         _inputReader.AttackKeyPressed += TryAttack;
         _collector.KitPickedUp += UseKit;
     }
 
     private void OnDisable()
     {
+        _inputReader.MovementKeyPressed -= _mover.Move;
+        _inputReader.MovementKeyReleased -= _mover.StopMove;
+        _inputReader.JumpKeyPressed -= _jumper.Jump;
         _inputReader.AttackKeyPressed -= TryAttack;
         _collector.KitPickedUp -= UseKit;
     }
@@ -49,9 +64,9 @@ public class Player : MonoBehaviour
 
     private void UseKit(Kit kit)
     {
-        if (_health == null)
+        if (_vitality == null)
             return;
 
-        _health.Heel(kit.HeelAmount);
+        _vitality.Heel(kit.HeelAmount);
     }
 }

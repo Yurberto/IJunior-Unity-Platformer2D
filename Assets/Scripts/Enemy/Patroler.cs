@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Patrol : MonoBehaviour
+public class Patroler : MonoBehaviour
 {
     [SerializeField] private Transform[] _patrolPoints;
     [SerializeField, Range(0, 1f)] private float _checkpointRadius = 1.0f;
