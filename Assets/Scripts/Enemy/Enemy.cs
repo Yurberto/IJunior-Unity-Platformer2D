@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour 
+[RequireComponent(typeof(EnemyMover), typeof(EnemyFighter))]
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private TargetDetector _targetDetector;
 

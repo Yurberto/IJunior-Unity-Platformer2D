@@ -6,7 +6,7 @@ public class EnemyMover : MonoBehaviour
     private Mover _mover;
     private Rotator _rotator;
 
-    private Patroler _patrol;
+    private Patroler _patroler;
     private Follower _follower;
 
     private bool _isFollow = false;
@@ -15,16 +15,16 @@ public class EnemyMover : MonoBehaviour
     {
         _mover = GetComponent<Mover>();
         _rotator = GetComponent<Rotator>();
-        _patrol = GetComponent<Patroler>();
+        _patroler = GetComponent<Patroler>();
         _follower = GetComponent<Follower>();
     }
 
     public void Move()
     {
-        if (_follower == null && _patrol == null)
+        if (_follower == null && _patroler == null)
             return;
 
-        Vector2 direction = ((_isFollow || _patrol == null) && _follower != null) ? _follower.GetDirection() : _patrol.GetDirection();
+        Vector2 direction = ((_isFollow || _patroler == null) && _follower != null) ? _follower.GetDirection() : _patroler.GetDirection();
 
         _mover.Move(direction.x);
         _rotator.LookAt(direction.x);
