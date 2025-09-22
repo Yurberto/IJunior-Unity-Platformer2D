@@ -9,11 +9,10 @@ public class Player : MonoBehaviour
     private ItemCollector _collector;
 
     private PlayerAnimator _animator;
-
     private Mover _mover;
     private Jumper _jumper;
 
-    private Health _vitality;
+    private Health _health;
     private Attacker _attacker;
 
     private DamageableDetector _damageableDetector;
@@ -24,10 +23,11 @@ public class Player : MonoBehaviour
     {
         _collector = GetComponent<ItemCollector>();
 
+        _animator = GetComponent<PlayerAnimator>();
         _mover = GetComponent<Mover>();
         _jumper = GetComponent<Jumper>();
 
-        _vitality = GetComponent<Health>();
+        _health = GetComponent<Health>();
         _attacker = GetComponent<Attacker>();
 
         _damageableDetector = GetComponent<DamageableDetector>();
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     {
         _inputReader.MovementKeyPressed += Move;
         _inputReader.MovementKeyReleased += StopMove;
-        _inputReader.JumpKeyPressed += _jumper.Jump;
+        _inputReader.JumpKeyPressed += Jump;
         _inputReader.AttackKeyPressed += TryAttack;
         _collector.KitPickedUp += UseKit;
     }
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     {
         _inputReader.MovementKeyPressed -= Move;
         _inputReader.MovementKeyReleased -= StopMove;
-        _inputReader.JumpKeyPressed -= _jumper.Jump;
+        _inputReader.JumpKeyPressed -= Jump;
         _inputReader.AttackKeyPressed -= TryAttack;
         _collector.KitPickedUp -= UseKit;
     }
@@ -61,6 +61,12 @@ public class Player : MonoBehaviour
     {
         _mover.StopMove();
         _animator.StopMove();
+    }
+
+    private void Jump()
+    {
+        _jumper.Jump();
+        _animator.Jump();
     }
 
     private void TryAttack()
@@ -81,9 +87,9 @@ public class Player : MonoBehaviour
 
     private void UseKit(Kit kit)
     {
-        if (_vitality == null)
+        if (_health == null)
             return;
 
-        _vitality.Heal(kit.HeelAmount);
+        _health.Heal(kit.HeelAmount);
     }
 }
