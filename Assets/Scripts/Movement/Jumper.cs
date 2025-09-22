@@ -14,13 +14,17 @@ public class Jumper : MonoBehaviour
         _groundDetector = GetComponent<GroundDetector>();
     }
 
-    public void Jump()
+    public bool TryJump()
     {
-        if (_groundDetector != null)
-            if (_groundDetector.IsGround == false)
-                return;
+        if (_groundDetector == null)
+            return false;
 
-        _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
-        _rigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+        if (_groundDetector.IsGround)
+        {
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
+            _rigidbody.AddForce(new Vector2(0, _jumpForce), ForceMode2D.Impulse);
+        }
+
+        return _groundDetector.IsGround;
     }
 }

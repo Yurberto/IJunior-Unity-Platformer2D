@@ -14,5 +14,7 @@ public static class Utils
         Debug.DrawLine(topRight, bottomRight, Color.red, duration);
         Debug.DrawLine(bottomRight, bottomLeft, Color.red, duration);
         Debug.DrawLine(bottomLeft, topLeft, Color.red, duration);
+
+        Debug.Log("Draw");
     }
 }

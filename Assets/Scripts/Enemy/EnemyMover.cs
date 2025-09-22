@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Mover), typeof(Rotator))]
+[RequireComponent(typeof(Mover))]
 public class EnemyMover : MonoBehaviour
 {
     private Mover _mover;
@@ -14,9 +14,10 @@ public class EnemyMover : MonoBehaviour
     private void Awake()
     {
         _mover = GetComponent<Mover>();
-        _rotator = GetComponent<Rotator>();
         _patroler = GetComponent<Patroler>();
         _follower = GetComponent<Follower>();
+
+        _rotator = GetComponentInChildren<Rotator>();
     }
 
     public void Move()

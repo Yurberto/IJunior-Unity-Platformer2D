@@ -23,14 +23,14 @@ public class Player : MonoBehaviour
     {
         _collector = GetComponent<ItemCollector>();
 
-        _animator = GetComponent<PlayerAnimator>();
         _mover = GetComponent<Mover>();
         _jumper = GetComponent<Jumper>();
 
         _health = GetComponent<Health>();
         _attacker = GetComponent<Attacker>();
-
         _damageableDetector = GetComponent<DamageableDetector>();
+
+        _animator = GetComponentInChildren<PlayerAnimator>();
     }
 
     private void OnEnable()
@@ -65,8 +65,8 @@ public class Player : MonoBehaviour
 
     private void Jump()
     {
-        _jumper.Jump();
-        _animator.Jump();
+        if(_jumper.TryJump())
+            _animator.Jump();
     }
 
     private void TryAttack()
@@ -78,9 +78,8 @@ public class Player : MonoBehaviour
         {
             _attacker.Attack(detected);
             _animator.Attack();
+            _attacker.StartDelayCoroutine();
         }
-
-        _attacker.StartDelayCoroutine();
 
         Attacked?.Invoke();
     }
