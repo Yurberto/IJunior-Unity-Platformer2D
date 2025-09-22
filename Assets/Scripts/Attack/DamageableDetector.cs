@@ -4,12 +4,16 @@ using UnityEngine;
 public class DamageableDetector : MonoBehaviour
 {
     [SerializeField, Range(0.01f, 10f)] private float _offset = 0.01f;
+    [SerializeField, Range(0, 20)] private int _maxColliders = 10;
 
     private Collider2D _characterCollider;
+    private Collider2D[] _hitted;
+    private int _collidersCount;
 
     private void Awake()
     {
         _characterCollider = GetComponent<Collider2D>();
+        _hitted = new Collider2D[_maxColliders];
     }
 
     public bool TryDetect(out IDamageable detected, float detectRange)
@@ -21,11 +25,11 @@ public class DamageableDetector : MonoBehaviour
         Vector2 boxCenter = new Vector2(boxCenterX, _characterCollider.bounds.center.y);
         Vector2 boxSize = new Vector2(detectRange, _characterCollider.bounds.max.y - _characterCollider.bounds.min.y);
 
-        Collider2D[] hitted = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f);
+        _collidersCount = Physics2D.OverlapBoxNonAlloc(boxCenter, boxSize, 0f, _hitted);
 
-        foreach (Collider2D hit in hitted)
+        for (int i = 0; i < _collidersCount; i++)
         {
-            if (hit != _characterCollider && hit.TryGetComponent(out IDamageable health))
+            if (_hitted[i] != _characterCollider && _hitted[i].TryGetComponent(out IDamageable health))
             {
                 detected = health;
                 return true;
