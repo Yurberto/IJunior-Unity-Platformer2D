@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3380501221259292351}
   - component: {fileID: 6571855525814460340}
+  - component: {fileID: -4765557523495141217}
   m_Layer: 0
   m_Name: EnemyHealthBar
   m_TagString: Untagged
@@ -49,6 +50,20 @@ MonoBehaviour:
   FillZone: {fileID: 7613878920815199640}
   _changeSpeed: 1
   _timeFactor: 100
+--- !u!114 &-4765557523495141217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1256429501489362693}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f93bd3727d450849bd4a9109e22bbc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _target: {fileID: 0}
+  _offset: {x: -0.15, y: 0.6, z: 0}
 --- !u!1 &3743261167020330940
 GameObject:
   m_ObjectHideFlags: 0
