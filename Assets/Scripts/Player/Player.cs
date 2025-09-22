@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 
     private ItemCollector _collector;
 
+    private PlayerAnimator _animator;
+
     private Mover _mover;
     private Jumper _jumper;
 
@@ -33,8 +35,8 @@ public class Player : MonoBehaviour
 
     private void OnEnable()
     {
-        _inputReader.MovementKeyPressed += _mover.Move;
-        _inputReader.MovementKeyReleased += _mover.StopMove;
+        _inputReader.MovementKeyPressed += Move;
+        _inputReader.MovementKeyReleased += StopMove;
         _inputReader.JumpKeyPressed += _jumper.Jump;
         _inputReader.AttackKeyPressed += TryAttack;
         _collector.KitPickedUp += UseKit;
@@ -42,11 +44,23 @@ public class Player : MonoBehaviour
 
     private void OnDisable()
     {
-        _inputReader.MovementKeyPressed -= _mover.Move;
-        _inputReader.MovementKeyReleased -= _mover.StopMove;
+        _inputReader.MovementKeyPressed -= Move;
+        _inputReader.MovementKeyReleased -= StopMove;
         _inputReader.JumpKeyPressed -= _jumper.Jump;
         _inputReader.AttackKeyPressed -= TryAttack;
         _collector.KitPickedUp -= UseKit;
+    }
+
+    private void Move(float direction)
+    {
+        _mover.Move(direction);
+        _animator.Move(direction);
+    }
+
+    private void StopMove()
+    {
+        _mover.StopMove();
+        _animator.StopMove();
     }
 
     private void TryAttack()
@@ -55,7 +69,10 @@ public class Player : MonoBehaviour
             return;
 
         if (_damageableDetector.TryDetect(out IDamageable detected, _attacker.AttackRange))
+        {
             _attacker.Attack(detected);
+            _animator.Attack();
+        }
 
         _attacker.StartDelayCoroutine();
 
