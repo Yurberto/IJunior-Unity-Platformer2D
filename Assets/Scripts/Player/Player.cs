@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private Mover _mover;
     private Jumper _jumper;
 
-    private Vitality _vitality;
+    private Health _vitality;
     private Attacker _attacker;
 
     private DamageableDetector _damageableDetector;
@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
         _mover = GetComponent<Mover>();
         _jumper = GetComponent<Jumper>();
 
-        _vitality = GetComponent<Vitality>();
+        _vitality = GetComponent<Health>();
         _attacker = GetComponent<Attacker>();
 
         _damageableDetector = GetComponent<DamageableDetector>();
@@ -67,6 +67,6 @@ public class Player : MonoBehaviour
         if (_vitality == null)
             return;
 
-        _vitality.Heel(kit.HeelAmount);
+        _vitality.Heal(kit.HeelAmount);
     }
 }
