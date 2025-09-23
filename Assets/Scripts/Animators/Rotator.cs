@@ -19,7 +19,5 @@ public class Rotator : MonoBehaviour
         Vector3 currentRotation = new Vector3(transform.rotation.eulerAngles.x, currentRotationY, transform.rotation.eulerAngles.z);
 
         transform.rotation = Quaternion.Euler(currentRotation);
-
-        Debug.Log($"{name}\n{rotationY} - rotationY\t{currentRotationY} - currentRotationY\n{direction} - directionInput\t{_currentDirection} - currentDirection\n\n\n\n");
     }
 }
