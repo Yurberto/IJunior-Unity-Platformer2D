@@ -18,16 +18,16 @@ public class Enemy : MonoBehaviour
     {
         _targetDetector.PlayerDetected += _mover.StartFollow;
         _targetDetector.PlayerLost += _mover.StopFollow;
-        _targetDetector.DamageableDetected += _fighter.StartAttack;
-        _targetDetector.DamageableLost += _fighter.StopAttack;
+        //_targetDetector.DamageableDetected += _fighter.StartAttack;
+        //_targetDetector.DamageableLost += _fighter.StopAttack;
     }
 
     private void OnDisable()
     {
         _targetDetector.PlayerDetected -= _mover.StartFollow;
         _targetDetector.PlayerLost -= _mover.StopFollow;
-        _targetDetector.DamageableDetected -= _fighter.StartAttack;
-        _targetDetector.DamageableLost -= _fighter.StopAttack;
+        //_targetDetector.DamageableDetected -= _fighter.StartAttack;
+        //_targetDetector.DamageableLost -= _fighter.StopAttack;
     }
 
     private void FixedUpdate()

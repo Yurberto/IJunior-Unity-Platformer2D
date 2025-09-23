@@ -3,6 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(ItemCollector), typeof(DamageableDetector), typeof(Mover))]
 [RequireComponent(typeof(Jumper), typeof(Health), typeof(Attacker))]
+[RequireComponent (typeof(VampiricUltimateActivator))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
@@ -15,6 +16,7 @@ public class Player : MonoBehaviour
 
     private Health _health;
     private Attacker _attacker;
+    private VampiricUltimateActivator _vampiricUltimateActivator;
 
     private DamageableDetector _damageableDetector;
 
@@ -29,6 +31,8 @@ public class Player : MonoBehaviour
 
         _health = GetComponent<Health>();
         _attacker = GetComponent<Attacker>();
+        _vampiricUltimateActivator = GetComponent<VampiricUltimateActivator>();
+
         _damageableDetector = GetComponent<DamageableDetector>();
 
         _animator = GetComponentInChildren<PlayerAnimator>();
@@ -40,6 +44,8 @@ public class Player : MonoBehaviour
         _inputReader.MovementKeyReleased += StopMove;
         _inputReader.JumpKeyPressed += Jump;
         _inputReader.AttackKeyPressed += TryAttack;
+        _inputReader.UltimateKeyPressed += UseUltimate;
+
         _collector.KitPickedUp += UseKit;
     }
 
@@ -49,6 +55,8 @@ public class Player : MonoBehaviour
         _inputReader.MovementKeyReleased -= StopMove;
         _inputReader.JumpKeyPressed -= Jump;
         _inputReader.AttackKeyPressed -= TryAttack;
+        _inputReader.UltimateKeyPressed -= UseUltimate;
+
         _collector.KitPickedUp -= UseKit;
     }
 
@@ -83,6 +91,11 @@ public class Player : MonoBehaviour
         }
 
         Attacked?.Invoke();
+    }
+
+    private void UseUltimate()
+    {
+        _vampiricUltimateActivator.Activate();
     }
 
     private void UseKit(Kit kit)
