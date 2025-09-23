@@ -26,4 +26,11 @@ public static class Utils
         Vector3 end3D = new Vector3(end.x, end.y, 0);
         Debug.DrawLine(start3D, end3D, color, duration);
     }
+
+    public static void DrawRay2D(Vector2 start, Vector2 end, Color color, float duration = 0.1f)
+    {
+        Vector3 start3D = new Vector3(start.x, start.y, 0);
+        Vector3 direction3D = new Vector3(end.x, end.y, 0);
+        Debug.DrawRay(start3D, direction3D, color, duration);
+    }
 }

@@ -9,19 +9,21 @@ public class VampiricUltimateActivator : MonoBehaviour
     [SerializeField, Range(0.0f, 10.0f)] private float _duration = 6.0f;
     [SerializeField, Range(0.0f, 10.0f)] private float _reloadTime = 4.0f;
 
-    [SerializeField] private Timer _timer;
-
     private UltimateEnemyDetector _detector;
 
     private Health _healthToHeal;
     private IDamageable _targetToDamage;
 
-    private bool _ñanActivate => _timer.IsOn == false;
+    private bool _isActive;
+    private bool _isReload;
 
     private void Awake()
     {
         _detector = GetComponent<UltimateEnemyDetector>();
         _healthToHeal = GetComponent<Health>();
+
+        _isActive = false;
+        _isReload = false;
     }
 
     private void OnEnable()
@@ -38,34 +40,44 @@ public class VampiricUltimateActivator : MonoBehaviour
 
     public void Activate()
     {
-        if (_ñanActivate)
+        if (_isActive == false && _isReload == false)
         {
             StartCoroutine(ActionCoroutine());
-            _timer.Run(_duration);
         }
     }
 
     private IEnumerator ActionCoroutine()
     {
+        _isActive = true;
         _detector.StartDetect();
 
-        var wait = new WaitForSeconds(Time.deltaTime);
-        Debug.Log(_targetToDamage);
+        float time = 0;
 
-        while (_timer.IsOn)
+        var wait = new WaitForSeconds(Time.deltaTime);
+
+        while (time < _duration)
         {
             if (_targetToDamage != null)
             {
-                Debug.Log("Ïîøåë îòñîñ");
                 _healthToHeal.Heal(_healthOverflowRate * Time.deltaTime);
                 _targetToDamage.TakeDamage(_healthOverflowRate * Time.deltaTime);
             }
 
+            time += Time.deltaTime;
             yield return wait;
         }
 
-        _timer.Run(_reloadTime);
+        _isActive = false;
         _detector.StopDetect();
+
+        Reload();
+    }
+
+    private IEnumerator Reload()
+    {
+        _isReload = true;
+        yield return new WaitForSeconds(_reloadTime);
+        _isReload = false;
     }
 
     private void SetTarget(Enemy target)

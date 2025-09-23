@@ -25,7 +25,7 @@ public class UltimateEnemyDetector : MonoBehaviour
         _characterCollider = GetComponent<Collider2D>();
         _rays = new Vector2[]
             {
-                Vector2.left, Vector2.right
+                new Vector2(-1, 0), new Vector2(1, 0)
             };
 
         _nearestDistance = float.MaxValue;
@@ -60,29 +60,31 @@ public class UltimateEnemyDetector : MonoBehaviour
     private void Detect()
     {
         bool isEnemyDetect = false;
-        Debug.Log("IsDetect");
+        Debug.Log("IsDetecting");
 
         Vector2 rightPointX = new Vector2(_characterCollider.bounds.max.x + _offset, _characterCollider.bounds.center.y);
         Vector2 leftPointX = new Vector2(_characterCollider.bounds.min.x - _offset, _characterCollider.bounds.center.y);
 
-        for (int i = 0; i < _rays.Length; i++)
+        foreach (var ray in _rays)
         {
-            Vector2 start = _rays[i].x > 0 ? rightPointX : leftPointX;
-            RaycastHit2D hit = Physics2D.Raycast(start, _rays[i], _ultimateRange);
-            Utils.DrawLine2D(start, start + _rays[i] * _ultimateRange, Color.red, 2);
+            Vector2 start = ray.x > 0 ? rightPointX : leftPointX;
+            RaycastHit2D hit = Physics2D.Raycast(start, ray, _ultimateRange);
+            Utils.DrawRay2D(start, ray * _ultimateRange, Color.red, 2);
 
-            if (hit.collider == null || hit.collider.gameObject.TryGetComponent(out Enemy enemy) == false)
-                continue;
-            Debug.Log("DetectedEnemy");
-
-            if (hit.distance < _nearestDistance)
+            if (hit.collider != null && hit.collider != _characterCollider && hit.collider.gameObject.TryGetComponent(out Enemy enemy))
             {
-                Debug.Log("HasDetectedNew");
-                _nearestDistance = hit.distance;
-                NearestEnemyFound?.Invoke(enemy);
-            }
+                Debug.Log("DetectedEnemy, nearestDistance: " + _nearestDistance);
 
-            isEnemyDetect = true;
+                if (hit.distance < _nearestDistance)
+                {
+                    Debug.Log("HasDetectedNew");
+                    _nearestDistance = hit.distance;
+                    NearestEnemyFound?.Invoke(enemy);
+                }
+
+                isEnemyDetect = true;
+            }
+                
         }
 
         if (isEnemyDetect == false)

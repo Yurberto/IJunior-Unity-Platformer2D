@@ -199,6 +199,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bear  (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2859875841795021241, guid: dec4f3b284f2971489e352eab8ab3abd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5306577988667007510, guid: dec4f3b284f2971489e352eab8ab3abd, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -486,6 +490,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1178105429890918601, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
+      propertyPath: _currentValue
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1248074380571408605, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -644,7 +652,11 @@ PrefabInstance:
       objectReference: {fileID: 2023151998}
     - target: {fileID: 3877672899216387138, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: _offset
-      value: 0.0173
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 3877672899216387138, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
+      propertyPath: _detectDelay
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3877672899216387138, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: _ultimateRange
@@ -836,11 +848,11 @@ PrefabInstance:
       objectReference: {fileID: 503240704}
     - target: {fileID: 8055544304396920931, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: _duration
-      value: 2.06
+      value: 4.03
       objectReference: {fileID: 0}
     - target: {fileID: 8055544304396920931, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: _reloadTime
-      value: 1.09
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8055544304396920931, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: _healthOverflowRate
@@ -1320,6 +1332,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5905050446219961401, guid: dec4f3b284f2971489e352eab8ab3abd, type: 3}
+      propertyPath: m_BodyType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8117175080078973347, guid: dec4f3b284f2971489e352eab8ab3abd, type: 3}
       propertyPath: _patrolPoints.Array.data[0]
       value: 
@@ -1343,6 +1359,8 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 8117175080078973347, guid: dec4f3b284f2971489e352eab8ab3abd, type: 3}
     - {fileID: 7852948773458549186, guid: dec4f3b284f2971489e352eab8ab3abd, type: 3}
+    - {fileID: 8086694493677361536, guid: dec4f3b284f2971489e352eab8ab3abd, type: 3}
+    - {fileID: 8302951131749689809, guid: dec4f3b284f2971489e352eab8ab3abd, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
