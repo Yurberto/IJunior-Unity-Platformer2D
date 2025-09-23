@@ -10,4 +10,6 @@ public static class InputData
 
     public const KeyCode Attack = KeyCode.Q;
     public const KeyCode AlternativeAttack = KeyCode.Mouse0;
+
+    public const KeyCode Ultimate = KeyCode.S;
 }

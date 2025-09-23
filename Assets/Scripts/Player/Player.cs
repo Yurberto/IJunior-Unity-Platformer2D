@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(ItemCollector))]
+[RequireComponent(typeof(ItemCollector), typeof(DamageableDetector), typeof(Mover))]
+[RequireComponent(typeof(Jumper), typeof(Health), typeof(Attacker))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
