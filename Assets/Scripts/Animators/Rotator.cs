@@ -2,13 +2,24 @@ using UnityEngine;
 
 public class Rotator : MonoBehaviour
 {
-    public float LookDirection => transform.localScale.x.Normilize();
+    private const float RightDirection = 1;
+    private const float LeftDirection = -1;
+
+    private float _currentDirection;
+
+    public float LookDirection => _currentDirection;
 
     public void LookAt(float direction)
     {
-        if (Mathf.Sign(direction) == Mathf.Sign(transform.localScale.x))
-            return;
+        float rotationY = transform.rotation.eulerAngles.y;
 
-        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y);
+        _currentDirection = (rotationY % (2 * Utils.PiInDeg) == 0) ? RightDirection : LeftDirection;
+
+        float currentRotationY = (direction.Normilize() == RightDirection) ? 0 : Utils.PiInDeg;
+        Vector3 currentRotation = new Vector3(transform.rotation.eulerAngles.x, currentRotationY, transform.rotation.eulerAngles.z);
+
+        transform.rotation = Quaternion.Euler(currentRotation);
+
+        Debug.Log($"{name}\n{rotationY} - rotationY\t{currentRotationY} - currentRotationY\n{direction} - directionInput\t{_currentDirection} - currentDirection\n\n\n\n");
     }
 }
