@@ -1,9 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(EnemyMover), typeof(EnemyFighter))]
+[RequireComponent(typeof(EnemyMover), typeof(EnemyFighter), typeof(Health))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private TargetDetector _targetDetector;
+
+    private Health _health;
 
     private EnemyMover _mover;
     private EnemyFighter _fighter;
@@ -12,27 +14,58 @@ public class Enemy : MonoBehaviour
     {
         _mover = GetComponent<EnemyMover>();
         _fighter = GetComponent<EnemyFighter>();
+        _health = GetComponent<Health>();
+
+        gameObject.layer = LayerMask.NameToLayer(LayerMaskData.InString.Enemy);
     }
 
     private void OnEnable()
     {
-        _targetDetector.PlayerDetected += _mover.StartFollow;
-        _targetDetector.PlayerLost += _mover.StopFollow;
-        //_targetDetector.DamageableDetected += _fighter.StartAttack;
-        //_targetDetector.DamageableLost += _fighter.StopAttack;
+        _targetDetector.PlayerDetected += StartFollow;
+        _targetDetector.PlayerLost += StopFollow;
+        _targetDetector.DamageableDetected += StartAttack;
+        _targetDetector.DamageableLost += StopAttack;
+
+        _health.IsOver += Die;
     }
 
     private void OnDisable()
     {
-        _targetDetector.PlayerDetected -= _mover.StartFollow;
-        _targetDetector.PlayerLost -= _mover.StopFollow;
-        //_targetDetector.DamageableDetected -= _fighter.StartAttack;
-        //_targetDetector.DamageableLost -= _fighter.StopAttack;
+        _targetDetector.PlayerDetected -= StartFollow;
+        _targetDetector.PlayerLost -= StopFollow;
+        _targetDetector.DamageableDetected -= StartAttack;
+        _targetDetector.DamageableLost -= StopAttack;
+
+        _health.IsOver += Die;
     }
 
     private void FixedUpdate()
     {
-        if (_mover != null)
-            _mover.Move();
+        _mover.Move();
+    }
+
+    private void StartFollow(Player player)
+    {
+        _mover.StartFollow(player);
+    }
+
+    private void StopFollow()
+    {
+        _mover.StopFollow();
+    }
+
+    private void StartAttack()
+    {
+        _fighter.StartAttack();
+    }
+
+    private void StopAttack()
+    {
+        _fighter.StopAttack();
+    }
+
+    private void Die()
+    {
+        Destroy(gameObject);
     }
 }

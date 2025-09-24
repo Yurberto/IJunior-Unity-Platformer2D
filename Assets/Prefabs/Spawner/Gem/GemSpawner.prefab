@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8871908854251367006}
   - component: {fileID: 3386387996090915664}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GemSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

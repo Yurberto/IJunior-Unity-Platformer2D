@@ -2,6 +2,7 @@ using UnityEngine;
 
 public static class Utils 
 {
+    public const float PercentValue = 100f;
     public const float PiInDeg = 180f;
 
     public static void DrawBox(Vector2 boxCenter, Vector2 boxSize, float duration = 1)
@@ -16,8 +17,6 @@ public static class Utils
         Debug.DrawLine(topRight, bottomRight, Color.red, duration);
         Debug.DrawLine(bottomRight, bottomLeft, Color.red, duration);
         Debug.DrawLine(bottomLeft, topLeft, Color.red, duration);
-
-        Debug.Log("Draw");
     }
 
     public static void DrawLine2D(Vector2 start, Vector2 end, Color color, float duration = 0.1f)

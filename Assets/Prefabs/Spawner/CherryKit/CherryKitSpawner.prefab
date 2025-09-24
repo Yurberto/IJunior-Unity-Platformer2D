@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2432232616319674357}
   - component: {fileID: 6523749072154941015}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: CherryKitSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
@@ -36,7 +37,6 @@ public class UltimateEnemyDetector : MonoBehaviour
         if (_detectCoroutine != null)
             StopDetect();
 
-        Debug.Log("StartDetect");
         _detectCoroutine = StartCoroutine(DetectCoroutine());
     }
 
@@ -60,7 +60,6 @@ public class UltimateEnemyDetector : MonoBehaviour
     private void Detect()
     {
         bool isEnemyDetect = false;
-        Debug.Log("IsDetecting");
 
         Vector2 rightPointX = new Vector2(_characterCollider.bounds.max.x + _offset, _characterCollider.bounds.center.y);
         Vector2 leftPointX = new Vector2(_characterCollider.bounds.min.x - _offset, _characterCollider.bounds.center.y);
@@ -68,26 +67,24 @@ public class UltimateEnemyDetector : MonoBehaviour
         foreach (var ray in _rays)
         {
             Vector2 start = ray.x > 0 ? rightPointX : leftPointX;
-            RaycastHit2D hit = Physics2D.Raycast(start, ray, _ultimateRange);
-            Utils.DrawRay2D(start, ray * _ultimateRange, Color.red, 2);
+            RaycastHit2D hit = Physics2D.Raycast(start, ray, _ultimateRange, LayerMaskData.Enemy);
 
-            if (hit.collider != null && hit.collider != _characterCollider && hit.collider.gameObject.TryGetComponent(out Enemy enemy))
+            if (hit.collider != null && hit.collider.TryGetComponent(out Enemy enemy))
             {
-                Debug.Log("DetectedEnemy, nearestDistance: " + _nearestDistance);
-
                 if (hit.distance < _nearestDistance)
                 {
-                    Debug.Log("HasDetectedNew");
                     _nearestDistance = hit.distance;
                     NearestEnemyFound?.Invoke(enemy);
                 }
 
                 isEnemyDetect = true;
             }
-                
         }
 
         if (isEnemyDetect == false)
+        {
             EnemiesLost?.Invoke();
+            _nearestDistance = float.MaxValue;
+        }
     }
 }

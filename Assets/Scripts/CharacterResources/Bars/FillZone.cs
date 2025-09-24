@@ -19,10 +19,8 @@ public class FillZone : MonoBehaviour
     public void ApplyFill(float fillAmount)
     {
         if (_image == null)
-        {
-            Debug.Log("имаге ноль");
             return;
-        }
+        
         _image.fillAmount = fillAmount;
     }
 }
