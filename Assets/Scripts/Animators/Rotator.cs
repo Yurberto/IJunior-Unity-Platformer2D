@@ -3,21 +3,21 @@ using UnityEngine;
 public class Rotator : MonoBehaviour
 {
     private const float RightDirection = 1;
-    private const float LeftDirection = -1;
+    private const float RightRotationInDeg = 0;
+    private const float LeftRotationInDeg = 180;
 
     private float _currentDirection;
 
     public float LookDirection => _currentDirection;
 
-    public void LookAt(float direction)
+    public void LookAt(float inputDirection)
     {
-        float rotationY = transform.rotation.eulerAngles.y;
+        _currentDirection = inputDirection.Normilize();
 
-        _currentDirection = (rotationY % (2 * Utils.PiInDeg) == 0) ? RightDirection : LeftDirection;
+        bool isInputDirectionRight = Mathf.Approximately(_currentDirection, RightDirection);
+        float updatedRotationY = isInputDirectionRight ? RightRotationInDeg : LeftRotationInDeg;
 
-        float currentRotationY = (direction.Normilize() == RightDirection) ? 0 : Utils.PiInDeg;
-        Vector3 currentRotation = new Vector3(transform.rotation.eulerAngles.x, currentRotationY, transform.rotation.eulerAngles.z);
-
-        transform.rotation = Quaternion.Euler(currentRotation);
+        Vector3 updatedRotation = new Vector3(transform.rotation.eulerAngles.x, updatedRotationY, transform.rotation.eulerAngles.z);
+        transform.rotation = Quaternion.Euler(updatedRotation);
     }
 }

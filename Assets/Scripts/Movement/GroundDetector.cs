@@ -34,7 +34,7 @@ public class GroundDetector : MonoBehaviour
 
         foreach (Vector2 downBound in downBounds)
         {
-            RaycastHit2D hit = Physics2D.Raycast(downBound, Vector2.down, _maxDistanceDetect);
+            RaycastHit2D hit = Physics2D.Raycast(downBound, Vector2.down, _maxDistanceDetect, LayerMaskData.Ground);
 
             if (hit.collider != null && hit.collider.TryGetComponent(out Ground _))
                 return true;

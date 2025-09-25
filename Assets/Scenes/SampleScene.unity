@@ -391,6 +391,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1250352104667087099, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1252221993891206593, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: m_Camera
       value: 
@@ -398,6 +402,14 @@ PrefabInstance:
     - target: {fileID: 1252221993891206593, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: m_RenderMode
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522557389565820286, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
+      propertyPath: m_Name
+      value: UltimateCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1522557389565820286, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1775804893120171291, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: m_AnchorMax.x
@@ -531,6 +543,18 @@ PrefabInstance:
       propertyPath: _enemyMask.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3960375170865759681, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960375170865759681, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3960375170865759681, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4244498590639043229, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: m_Type
       value: 3
@@ -617,11 +641,11 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: f1ca9e76a7c95ec4e91fe87161dd9078, type: 3}
     - target: {fileID: 6066615003452939086, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: _currentValue
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6066615003452939086, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: _increasePerSecond
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6328126100175820524, guid: cb1ebcba1ec0b9e498c50b71f8a74a83, type: 3}
       propertyPath: m_LocalPosition.x
