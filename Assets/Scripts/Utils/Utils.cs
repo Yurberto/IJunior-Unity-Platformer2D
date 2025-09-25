@@ -2,9 +2,6 @@ using UnityEngine;
 
 public static class Utils 
 {
-    public const float PercentValue = 100f;
-    public const float PiInDeg = 180f;
-
     public static void DrawBox(Vector2 boxCenter, Vector2 boxSize, float duration = 1)
     {
         Vector2 halfSize = boxSize * 0.5f;

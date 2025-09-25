@@ -1,9 +1,11 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(ItemCollector), typeof(DamageableDetector), typeof(Mover))]
 [RequireComponent(typeof(Jumper), typeof(Health), typeof(Attacker))]
-[RequireComponent (typeof(VampiricUltimateActivator), typeof(Mana))]
+[RequireComponent (typeof(VampiricUltimateAbillity), typeof(Mana))]
 public class Player : MonoBehaviour
 {
     [SerializeField] private InputReader _inputReader;
@@ -18,9 +20,14 @@ public class Player : MonoBehaviour
     private Mana _mana;
 
     private Attacker _attacker;
-    private VampiricUltimateActivator _vampiricUltimateActivator;
+    private VampiricUltimateAbillity _vampiricUltimateAbility;
 
     private DamageableDetector _damageableDetector;
+
+    private bool _canUseUltimate = true;
+
+    public event Action UltimateUsed;
+    public event Action UltimateReload;
 
     private void Awake()
     {
@@ -33,7 +40,7 @@ public class Player : MonoBehaviour
         _mana = GetComponent<Mana>();
 
         _attacker = GetComponent<Attacker>();
-        _vampiricUltimateActivator = GetComponent<VampiricUltimateActivator>();
+        _vampiricUltimateAbility = GetComponent<VampiricUltimateAbillity>();
         _damageableDetector = GetComponent<DamageableDetector>();
 
         _animator = GetComponentInChildren<PlayerAnimator>();
@@ -101,9 +108,9 @@ public class Player : MonoBehaviour
 
     private void UseUltimate()
     {
-        if (_mana.IsFull && _vampiricUltimateActivator.IsActive == false && _vampiricUltimateActivator.IsReload == false)
+        if (_mana.IsFull && _canUseUltimate)
         {
-            _vampiricUltimateActivator.Activate();
+            StartCoroutine(VampiricUltimateCoroutine());
             _mana.Spend(_mana.CurrentValue); 
         }
     }
@@ -119,5 +126,27 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
+    }
+
+    private IEnumerator VampiricUltimateCoroutine()
+    {
+        UltimateUsed?.Invoke();
+        _canUseUltimate = false;
+
+        float timer = 0;
+
+        while (timer < _vampiricUltimateAbility.Duration)
+        {
+            if (_vampiricUltimateAbility.TryStealHealth(out float stealedAmount))
+                _health.Heal(stealedAmount);
+
+            timer += Time.deltaTime;
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        UltimateReload?.Invoke();
+        yield return new WaitForSeconds(_vampiricUltimateAbility.ReloadTime);
+        _canUseUltimate = true;
     }
 }

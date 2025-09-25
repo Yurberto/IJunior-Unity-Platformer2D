@@ -27,8 +27,10 @@ public class DamageableDetector : MonoBehaviour
 
         float direction = _rotator.LookDirection;
 
-        float boxSpawnpointRightX = _characterCollider.bounds.max.x + detectRange / 2 + _offset;
-        float boxSpawnpointLeftX = _characterCollider.bounds.min.x - detectRange / 2 - _offset;
+        float boxHalfWidth = detectRange / 2;
+
+        float boxSpawnpointRightX = _characterCollider.bounds.max.x + boxHalfWidth + _offset;
+        float boxSpawnpointLeftX = _characterCollider.bounds.min.x - boxHalfWidth - _offset;
 
         float boxCenterX = direction < 0 ? boxSpawnpointLeftX : boxSpawnpointRightX;
 
